@@ -453,6 +453,7 @@ Calculate your savings plan with GovtSave.`;
     }
   }
 }
+
 function printPlan(btn) {
   const card = btn.closest('[data-calc]');
   if (!card) return;
@@ -1732,8 +1733,7 @@ function printPlan(btn) {
       block: 'center'
     });
   });
-
-
+  window.printPlan = printPlan;
   showQuestion(0);
 
 })();
