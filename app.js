@@ -352,27 +352,352 @@ const SchemeRules = {
 
   /** Shares (or copies) the current result. Called from <button onclick="sharePlan(this)">. */
   async function sharePlan(btn) {
-    const card = btn.closest('[data-calc]');
-    if (!card) return;
-    const title = $('h3', card)?.textContent?.trim() || 'Savings estimate';
-    const heroAmount = $('[data-out="hero"]', card)?.textContent?.trim() || '';
-    const shareData = {
-      title: `${title} – GovtSave`,
-      text: `My ${title} estimate on GovtSave: ${heroAmount}.`,
-      url: window.location.href
-    };
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-      } else if (navigator.clipboard) {
-        await navigator.clipboard.writeText(`${shareData.text} ${shareData.url}`);
-        alert('Link copied to clipboard!');
-      }
-    } catch (err) {
-      if (err?.name !== 'AbortError') console.error('[GovtSave] Share failed:', err);
-    }
+  const card = btn.closest('[data-calc]');
+  if (!card) return;
+
+  const title =
+    $('h3', card)?.textContent?.trim() || 'Savings Calculator';
+
+  const invested =
+    $('[data-out="invested"]', card)?.textContent?.trim() || '—';
+
+  const interest =
+    $('[data-out="interest"]', card)?.textContent?.trim() || '—';
+
+  const heroAmount =
+    $('[data-out="hero"]', card)?.textContent?.trim() || '';
+
+  // Convert Indian currency text into a number
+  function parseMoney(value) {
+    const cleaned = String(value).replace(/[^\d.-]/g, '');
+    const number = Number(cleaned);
+    return Number.isFinite(number) ? number : null;
   }
 
+  function formatMoney(value) {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(value);
+  }
+
+  const investedNumber = parseMoney(invested);
+  const interestNumber = parseMoney(interest);
+
+  let totalValueText = '';
+
+  if (investedNumber !== null && interestNumber !== null) {
+    totalValueText =
+      `🏆 Estimated Total Value: ${formatMoney(
+        investedNumber + interestNumber
+      )}\n`;
+  }
+
+  const shareText =
+`${title} – GovtSave
+
+💰 Total Investment: ${invested}
+📈 Estimated Interest: ${interest}
+${totalValueText}
+Calculate your savings plan with GovtSave.`;
+
+  const shareUrl = window.location.href;
+
+  const shareData = {
+    title: `${title} – GovtSave`,
+    text: shareText,
+    url: shareUrl
+  };
+
+  const originalHTML = btn.innerHTML;
+
+  try {
+    // Mobile / supported browsers → Native Share Sheet
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+
+    // Desktop / unsupported browsers → Copy to clipboard
+    const completeText =
+      `${shareText}\n🔗 ${shareUrl}`;
+
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(completeText);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = completeText;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+
+      document.execCommand('copy');
+      textarea.remove();
+    }
+
+    btn.innerHTML =
+      '<i class="fa-solid fa-check"></i> Copied!';
+
+    setTimeout(() => {
+      btn.innerHTML = originalHTML;
+    }, 1800);
+
+  } catch (error) {
+    // User cancelled the native share sheet
+    if (error?.name !== 'AbortError') {
+      console.error('[GovtSave] Share failed:', error);
+    }
+  }
+}
+function printPlan(btn) {
+  const card = btn.closest('[data-calc]');
+  if (!card) return;
+
+  const title =
+    $('h3', card)?.textContent?.trim() || 'Savings Calculator';
+
+  const invested =
+    $('[data-out="invested"]', card)?.textContent?.trim() || '—';
+
+  const interest =
+    $('[data-out="interest"]', card)?.textContent?.trim() || '—';
+
+  const heroAmount =
+    $('[data-out="hero"]', card)?.textContent?.trim() || '—';
+
+  const reportWindow = window.open('', '_blank');
+
+  if (!reportWindow) {
+    alert('Please allow pop-ups to print the report.');
+    return;
+  }
+
+  reportWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${title} – GovtSave Report</title>
+
+      <style>
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 40px;
+          font-family: Arial, sans-serif;
+          color: #222;
+          background: #fff;
+        }
+
+        .report {
+          max-width: 760px;
+          margin: 0 auto;
+          border: 1px solid #ddd;
+          border-radius: 14px;
+          padding: 32px;
+        }
+
+        .brand {
+          text-align: center;
+          margin-bottom: 28px;
+        }
+
+        .brand h1 {
+          margin: 0;
+          font-size: 28px;
+        }
+
+        .brand p {
+          margin: 8px 0 0;
+          color: #666;
+        }
+
+        .scheme {
+          text-align: center;
+          margin-bottom: 28px;
+        }
+
+        .scheme h2 {
+          margin: 0;
+          font-size: 22px;
+        }
+
+        .result {
+          padding: 22px;
+          border: 1px solid #ddd;
+          border-radius: 12px;
+          margin-bottom: 20px;
+        }
+
+        .result-row {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+          padding: 13px 0;
+          border-bottom: 1px solid #eee;
+        }
+
+        .result-row:last-child {
+          border-bottom: 0;
+        }
+
+        .label {
+          color: #666;
+        }
+
+        .value {
+          font-weight: 700;
+          text-align: right;
+        }
+
+        .total {
+          margin-top: 18px;
+          padding: 18px;
+          border-radius: 10px;
+          background: #f3f7ff;
+          text-align: center;
+        }
+
+        .total span {
+          display: block;
+          color: #666;
+          margin-bottom: 6px;
+        }
+
+        .total strong {
+          font-size: 26px;
+        }
+
+        .footer {
+          margin-top: 28px;
+          padding-top: 18px;
+          border-top: 1px solid #ddd;
+          text-align: center;
+          color: #777;
+          font-size: 12px;
+          line-height: 1.6;
+        }
+
+        .print-btn {
+          display: block;
+          margin: 24px auto 0;
+          padding: 12px 22px;
+          border: 0;
+          border-radius: 8px;
+          background: #222;
+          color: #fff;
+          cursor: pointer;
+          font-size: 14px;
+        }
+
+        @media print {
+          body {
+            padding: 0;
+          }
+
+          .report {
+            border: 0;
+            padding: 20px;
+          }
+
+          .print-btn {
+            display: none;
+          }
+        }
+
+        @media (max-width: 600px) {
+          body {
+            padding: 15px;
+          }
+
+          .report {
+            padding: 20px;
+          }
+
+          .result-row {
+            flex-direction: column;
+            gap: 5px;
+          }
+
+          .value {
+            text-align: left;
+          }
+        }
+      </style>
+    </head>
+
+    <body>
+      <div class="report">
+
+        <div class="brand">
+          <h1>GovtSave</h1>
+          <p>Savings & Investment Calculator Report</p>
+        </div>
+
+        <div class="scheme">
+          <h2>${title}</h2>
+        </div>
+
+        <div class="result">
+
+          <div class="result-row">
+            <span class="label">Total Investment</span>
+            <span class="value">${invested}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Estimated Interest</span>
+            <span class="value">${interest}</span>
+          </div>
+
+          <div class="total">
+            <span>Estimated Total / Maturity Value</span>
+            <strong>${heroAmount}</strong>
+          </div>
+
+        </div>
+
+        <div class="footer">
+          <p>
+            This report is generated by GovtSave for educational
+            and informational purposes.
+          </p>
+
+          <p>
+            Calculator results are estimates based on the inputs
+            and assumptions shown on the website.
+          </p>
+
+          <p>
+            Please verify current scheme rates, rules and eligibility
+            with the relevant official authority before making
+            financial decisions.
+          </p>
+
+          <p>
+            Generated on ${new Date().toLocaleDateString('en-IN')}
+          </p>
+        </div>
+
+        <button class="print-btn" onclick="window.print()">
+          🖨️ Print / Save as PDF
+        </button>
+
+      </div>
+    </body>
+    </html>
+  `);
+
+  reportWindow.document.close();
+}
   function applyLimits(card, def, clampValues) {
     const limits = def.limits(card);
     Object.entries(limits).forEach(([name, l]) => {
@@ -671,4 +996,744 @@ const SchemeRules = {
   // scope. Everything else in this file stays private inside this one IIFE — no scope breaks.
   window.toggleYearlyTable = toggleYearlyTable;
   window.sharePlan = sharePlan;
+})();
+/* =========================================================
+   PHASE 1 - MONTHLY INVESTMENT PLANNER
+   Standalone add-on
+========================================================= */
+
+(() => {
+  'use strict';
+
+  const monthlyInput = document.getElementById('planner-monthly');
+  const yearsInput = document.getElementById('planner-years');
+  const rateInput = document.getElementById('planner-rate');
+  const calculateButton = document.getElementById('planner-calculate');
+
+  const finalValueOutput = document.getElementById('planner-final-value');
+  const investedOutput = document.getElementById('planner-invested');
+  const returnsOutput = document.getElementById('planner-returns');
+
+  if (
+    !monthlyInput ||
+    !yearsInput ||
+    !rateInput ||
+    !calculateButton ||
+    !finalValueOutput ||
+    !investedOutput ||
+    !returnsOutput
+  ) {
+    return;
+  }
+
+  const formatMoney = value => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(Math.round(value));
+  };
+
+  function calculatePlanner() {
+    const monthly = Number(monthlyInput.value);
+    const years = Number(yearsInput.value);
+    const annualRate = Number(rateInput.value) / 100;
+
+    if (!Number.isFinite(monthly) || monthly < 500 || monthly > 1000000) {
+      finalValueOutput.textContent = 'Enter valid amount';
+      investedOutput.textContent = '—';
+      returnsOutput.textContent = '—';
+      return;
+    }
+
+    if (!Number.isFinite(years) || years <= 0) {
+      finalValueOutput.textContent = 'Select period';
+      investedOutput.textContent = '—';
+      returnsOutput.textContent = '—';
+      return;
+    }
+
+    if (!Number.isFinite(annualRate) || annualRate < 0) {
+      finalValueOutput.textContent = 'Select return';
+      investedOutput.textContent = '—';
+      returnsOutput.textContent = '—';
+      return;
+    }
+
+    const months = years * 12;
+
+    /*
+      Monthly investment calculation:
+      - Monthly contribution is made at the end of each month.
+      - Annual return is converted to an equivalent monthly rate.
+    */
+    const monthlyRate =
+      Math.pow(1 + annualRate, 1 / 12) - 1;
+
+    let futureValue = 0;
+
+    for (let month = 1; month <= months; month++) {
+      futureValue += monthly;
+
+      if (monthlyRate > 0) {
+        futureValue *= 1 + monthlyRate;
+      }
+    }
+
+    const totalInvested = monthly * months;
+    const estimatedReturns = Math.max(
+      0,
+      futureValue - totalInvested
+    );
+
+    finalValueOutput.textContent = formatMoney(futureValue);
+    investedOutput.textContent = formatMoney(totalInvested);
+    returnsOutput.textContent = formatMoney(estimatedReturns);
+  }
+
+  calculateButton.addEventListener('click', calculatePlanner);
+
+  /*
+    Calculate automatically on page load,
+    so the planner never remains blank.
+  */
+  calculatePlanner();
+
+})();
+/* =========================================================
+   PHASE 2 - WEBSITE SEARCH
+   Standalone add-on
+========================================================= */
+
+(() => {
+  'use strict';
+
+  const searchBox = document.getElementById('site-search');
+  const searchInput = document.getElementById('site-search-input');
+  const clearButton = document.getElementById('site-search-clear');
+
+  if (!searchBox || !searchInput || !clearButton) {
+    return;
+  }
+
+  const searchableItems = Array.from(
+    document.querySelectorAll(
+      '.calculator-card, .guide-card, .rate-card, .faq-item'
+    )
+  );
+
+  function updateSearchState() {
+    searchBox.classList.toggle(
+      'has-value',
+      searchInput.value.trim().length > 0
+    );
+  }
+
+  function clearSearch() {
+    searchInput.value = '';
+
+    searchableItems.forEach(item => {
+      item.style.display = '';
+    });
+
+    updateSearchState();
+    searchInput.focus();
+  }
+
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    updateSearchState();
+
+    if (!query) {
+      searchableItems.forEach(item => {
+        item.style.display = '';
+      });
+      return;
+    }
+
+    searchableItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+
+      item.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', performSearch);
+
+  clearButton.addEventListener('click', clearSearch);
+
+  searchInput.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      clearSearch();
+    }
+  });
+
+})();
+(() => {
+  'use strict';
+
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('govtsave-theme');
+
+  function applyTheme(theme) {
+    const dark = theme === 'dark';
+
+    root.classList.toggle('dark-mode', dark);
+
+    toggle.innerHTML = dark
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
+
+    toggle.setAttribute(
+      'aria-label',
+      dark ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+
+    toggle.setAttribute(
+      'title',
+      dark ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+  }
+
+  applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+
+  toggle.addEventListener('click', () => {
+    const nextTheme = root.classList.contains('dark-mode')
+      ? 'light'
+      : 'dark';
+
+    localStorage.setItem('govtsave-theme', nextTheme);
+
+    applyTheme(nextTheme);
+  });
+})();
+/* =========================
+   STEP 10 - PREMIUM COMPARISON CHART
+========================== */
+
+(() => {
+  'use strict';
+
+  function createPremiumComparisonChart() {
+    const canvas = document.getElementById('scheme-comparison-chart');
+
+    if (!canvas) return;
+
+    if (typeof Chart === 'undefined') {
+      setTimeout(createPremiumComparisonChart, 300);
+      return;
+    }
+
+    const existingChart = Chart.getChart(canvas);
+
+    if (existingChart) {
+      existingChart.destroy();
+    }
+
+    const dark = document.documentElement.classList.contains('dark-mode');
+
+    const textColor = dark ? '#cbd5e1' : '#64748b';
+    const gridColor = dark
+      ? 'rgba(148, 163, 184, 0.12)'
+      : 'rgba(100, 116, 139, 0.12)';
+
+    const labels = [
+      'SSY',
+      'PPF',
+      'SCSS',
+      'POMIS',
+      'Bank FD'
+    ];
+
+    const rates = [
+      8.2,
+      7.1,
+      8.2,
+      7.4,
+      7.0
+    ];
+
+    const chart = new Chart(canvas, {
+      type: 'bar',
+
+      data: {
+        labels: labels,
+
+        datasets: [{
+          label: 'Interest Rate',
+
+          data: rates,
+
+          borderWidth: 0,
+
+          borderRadius: 12,
+
+          borderSkipped: false,
+
+          maxBarThickness: 58,
+
+          backgroundColor: [
+            'rgba(79, 70, 229, 0.88)',
+            'rgba(14, 165, 233, 0.88)',
+            'rgba(16, 185, 129, 0.88)',
+            'rgba(245, 158, 11, 0.88)',
+            'rgba(100, 116, 139, 0.78)'
+          ],
+
+          hoverBackgroundColor: [
+            'rgba(79, 70, 229, 1)',
+            'rgba(14, 165, 233, 1)',
+            'rgba(16, 185, 129, 1)',
+            'rgba(245, 158, 11, 1)',
+            'rgba(100, 116, 139, 1)'
+          ]
+        }]
+      },
+
+      options: {
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        animation: {
+          duration: 900,
+          easing: 'easeOutQuart'
+        },
+
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        },
+
+        plugins: {
+
+          legend: {
+            display: false
+          },
+
+          tooltip: {
+            backgroundColor: dark
+              ? '#020617'
+              : '#0f172a',
+
+            titleColor: '#ffffff',
+
+            bodyColor: '#e2e8f0',
+
+            padding: 14,
+
+            cornerRadius: 10,
+
+            displayColors: false,
+
+            callbacks: {
+              title: function(context) {
+                return context[0].label;
+              },
+
+              label: function(context) {
+                return 'Interest Rate: ' + context.parsed.y + '%';
+              }
+            }
+          }
+        },
+
+        scales: {
+
+          y: {
+            beginAtZero: true,
+
+            max: 10,
+
+            border: {
+              display: false
+            },
+
+            grid: {
+              color: gridColor,
+              drawTicks: false
+            },
+
+            ticks: {
+              color: textColor,
+
+              padding: 10,
+
+              callback: function(value) {
+                return value + '%';
+              }
+            },
+
+            title: {
+              display: true,
+
+              text: 'Interest Rate (%)',
+
+              color: textColor,
+
+              font: {
+                size: 12,
+                weight: '600'
+              }
+            }
+          },
+
+          x: {
+
+            border: {
+              display: false
+            },
+
+            grid: {
+              display: false
+            },
+
+            ticks: {
+              color: textColor,
+
+              padding: 10,
+
+              font: {
+                size: 12,
+                weight: '600'
+              }
+            }
+          }
+        }
+      },
+
+      plugins: [{
+        id: 'premiumRateLabels',
+
+        afterDatasetsDraw(chart) {
+
+          const ctx = chart.ctx;
+
+          ctx.save();
+
+          chart.data.datasets.forEach((dataset, datasetIndex) => {
+
+            const meta = chart.getDatasetMeta(datasetIndex);
+
+            meta.data.forEach((bar, index) => {
+
+              const value = dataset.data[index];
+
+              ctx.fillStyle = dark
+                ? '#f8fafc'
+                : '#0f172a';
+
+              ctx.font = '700 12px Arial';
+
+              ctx.textAlign = 'center';
+
+              ctx.textBaseline = 'bottom';
+
+              ctx.fillText(
+                value + '%',
+                bar.x,
+                bar.y - 8
+              );
+            });
+          });
+
+          ctx.restore();
+        }
+      }]
+    });
+
+    function refreshChartTheme() {
+
+      const isDark =
+        document.documentElement.classList.contains('dark-mode');
+
+      const newTextColor =
+        isDark ? '#cbd5e1' : '#64748b';
+
+      const newGridColor =
+        isDark
+          ? 'rgba(148, 163, 184, 0.12)'
+          : 'rgba(100, 116, 139, 0.12)';
+
+      chart.options.scales.y.ticks.color = newTextColor;
+
+      chart.options.scales.x.ticks.color = newTextColor;
+
+      chart.options.scales.y.title.color = newTextColor;
+
+      chart.options.scales.y.grid.color = newGridColor;
+
+      chart.options.plugins.tooltip.backgroundColor =
+        isDark ? '#020617' : '#0f172a';
+
+      chart.update();
+    }
+
+    const themeToggle =
+      document.getElementById('theme-toggle');
+
+    if (themeToggle) {
+      themeToggle.addEventListener(
+        'click',
+        function() {
+          setTimeout(refreshChartTheme, 80);
+        }
+      );
+    }
+  }
+
+  function startPremiumChart() {
+    createPremiumComparisonChart();
+  }
+
+  if (document.readyState === 'loading') {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      function() {
+        setTimeout(startPremiumChart, 500);
+      }
+    );
+
+  } else {
+
+    setTimeout(startPremiumChart, 500);
+
+  }
+
+})();
+/* =========================
+   STEP 11 - SCHEME QUIZ LOGIC
+========================== */
+
+(() => {
+  'use strict';
+
+  const quizCard = document.querySelector('.scheme-quiz-card');
+  const questions = document.querySelectorAll('.quiz-question');
+  const resultBox = document.getElementById('quiz-result');
+  const resultTitle = document.getElementById('quiz-result-title');
+  const resultDescription = document.getElementById('quiz-result-description');
+  const calculatorLink = document.getElementById('quiz-calculator-link');
+  const restartButton = document.getElementById('quiz-restart');
+
+  if (
+    !quizCard ||
+    !questions.length ||
+    !resultBox ||
+    !resultTitle ||
+    !resultDescription ||
+    !calculatorLink ||
+    !restartButton
+  ) {
+    return;
+  }
+
+  let currentQuestion = 0;
+
+  const answers = [];
+
+  const schemeResults = {
+    PPF: {
+      title: 'PPF may suit you better',
+      description:
+        'PPF may be worth considering if your priority is long-term, disciplined savings with a relatively stable government-backed savings structure.',
+      link: '#ppf-calculator'
+    },
+
+    SSY: {
+      title: 'SSY may suit you better',
+      description:
+        'SSY may be worth considering for eligible families planning long-term savings specifically for a girl child.',
+      link: '#ssy-calculator'
+    },
+
+    SCSS: {
+      title: 'SCSS may suit you better',
+      description:
+        'SCSS may be worth considering for eligible senior citizens who are looking for a savings option focused on regular interest income.',
+      link: '#scss-calculator'
+    },
+
+    POMIS: {
+      title: 'POMIS may suit you better',
+      description:
+        'POMIS may be worth considering if your priority is receiving regular income from a post-office savings scheme.',
+      link: '#pomis-calculator'
+    },
+
+    NPS: {
+      title: 'NPS may suit you better',
+      description:
+        'NPS may be worth considering if your main goal is long-term retirement planning and you are comfortable with market-linked investment exposure.',
+      link: '#nps-calculator'
+    }
+  };
+
+
+  function showQuestion(index) {
+
+    questions.forEach((question, questionIndex) => {
+      question.classList.toggle(
+        'active',
+        questionIndex === index
+      );
+    });
+
+    resultBox.classList.remove('show');
+  }
+
+
+  function calculateResult() {
+
+    const score = {
+      PPF: 0,
+      SSY: 0,
+      SCSS: 0,
+      POMIS: 0,
+      NPS: 0
+    };
+
+
+    answers.forEach(answer => {
+
+      switch (answer) {
+
+        case 'long':
+          score.PPF += 3;
+          score.SSY += 3;
+          score.NPS += 2;
+          break;
+
+        case 'income':
+          score.POMIS += 3;
+          score.SCSS += 2;
+          break;
+
+        case 'growth':
+          score.NPS += 4;
+          score.PPF += 2;
+          break;
+
+        case 'low':
+          score.PPF += 3;
+          score.SSY += 2;
+          score.SCSS += 2;
+          score.POMIS += 2;
+          break;
+
+        case 'moderate':
+          score.NPS += 4;
+          score.PPF += 1;
+          break;
+
+        case 'young':
+          score.PPF += 2;
+          score.NPS += 3;
+          break;
+
+        case 'middle':
+          score.PPF += 2;
+          score.NPS += 2;
+          break;
+
+        case 'senior':
+          score.SCSS += 4;
+          score.POMIS += 3;
+          break;
+
+        case 'monthly':
+          score.PPF += 3;
+          score.NPS += 3;
+          break;
+
+        case 'lumpsum':
+          score.PPF += 2;
+          score.POMIS += 1;
+          break;
+
+        case 'income':
+          score.POMIS += 3;
+          score.SCSS += 2;
+          break;
+      }
+    });
+
+
+    const highestScheme = Object.keys(score).reduce(
+      (best, scheme) =>
+        score[scheme] > score[best] ? scheme : best,
+      'PPF'
+    );
+
+
+    const result = schemeResults[highestScheme];
+
+    resultTitle.textContent = result.title;
+
+    resultDescription.textContent = result.description;
+
+    calculatorLink.href = result.link;
+
+
+    questions.forEach(question => {
+      question.classList.remove('active');
+    });
+
+    resultBox.classList.add('show');
+
+    resultBox.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
+
+
+  quizCard.addEventListener('click', event => {
+
+    const option = event.target.closest('.quiz-option');
+
+    if (!option) return;
+
+    const value = option.dataset.value;
+
+    if (!value) return;
+
+    answers[currentQuestion] = value;
+
+    if (currentQuestion < questions.length - 1) {
+
+      currentQuestion++;
+
+      showQuestion(currentQuestion);
+
+    } else {
+
+      calculateResult();
+
+    }
+  });
+
+
+  restartButton.addEventListener('click', () => {
+
+    currentQuestion = 0;
+
+    answers.length = 0;
+
+    showQuestion(0);
+
+    quizCard.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  });
+
+
+  showQuestion(0);
+
 })();
