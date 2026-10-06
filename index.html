@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GovtSave | Government Savings Calculators</title>
+  <meta name="description" content="Free educational calculators for Indian savings schemes: SSY, PPF, POMIS, NPS and SCSS. Compare estimates, view charts and download PDF reports.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GovtSave | Government Savings Calculators">
+  <meta property="og:description" content="Free educational calculators for Indian savings schemes: SSY, PPF, POMIS, NPS and SCSS. Compare estimates, view charts and download PDF reports.">
+  <meta property="og:site_name" content="GovtSave">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#047857">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="GovtSave home"><span class="brand-mark"><i class="fa-solid fa-landmark"></i></span><span>Govt<em>Save</em></span></a>
+      <div class="nav-links"><a href="#home">Home</a><a href="#rates">Rates</a><a href="#calculators">Calculators</a><a href="#comparison">Compare</a><a href="#latest-guides">Guides</a></div>
+      <button class="menu-btn" id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+    <div class="mobile-links" id="mobile-menu"><a href="#home">Home</a><a href="#rates">Rates</a><a href="#calculators">Calculators</a><a href="#comparison">Compare</a><a href="#latest-guides">Guides</a><a href="#contact">Contact</a></div>
+  </div>
+</header>
+<main>
+  <section class="hero" id="home"><div class="container hero-grid">
+    <div><span class="eyebrow"><i class="fa-solid fa-calculator"></i> Government savings, made easier</span><h1>Plan your savings with clarity.</h1><p>Explore educational calculators for popular Indian savings schemes. Estimate contributions, interest and maturity values using clearly stated assumptions, then download a PDF report.</p>
+    <div class="hero-actions"><a class="btn btn-white" href="#calculators">Explore Calculators <i class="fa-solid fa-arrow-right"></i></a><a class="btn btn-outline-light" href="#latest-guides">Read Guides</a></div></div>
+    <aside class="hero-panel" aria-label="GovtSave highlights"><div class="hero-stat"><strong>5 calculators</strong><span>SSY, PPF, POMIS, NPS and SCSS</span></div><div class="hero-stat"><strong>Charts &amp; PDF reports</strong><span>See the split between investment and interest</span></div><div class="hero-stat"><strong>Free to explore</strong><span>Calculations run in your browser</span></div></aside>
+  </div></section>
+
+  <section class="section" id="rates"><div class="container">
+    <div class="section-heading"><span class="pill">Indicative rates</span><h2>Small Savings Scheme Rates</h2><p>Rates below are reference values configured on this site. Verify current rates with official notifications before relying on them.</p></div>
+    <div class="rate-grid">
+      <div class="rate-card"><span>SSY</span><strong data-rate="SSY"></strong><span>p.a. assumption</span></div>
+      <div class="rate-card"><span>PPF</span><strong data-rate="PPF"></strong><span>p.a. assumption</span></div>
+      <div class="rate-card"><span>POMIS</span><strong data-rate="POMIS"></strong><span>p.a. assumption</span></div>
+      <div class="rate-card"><span>SCSS</span><strong data-rate="SCSS"></strong><span>p.a. assumption</span></div>
+      <div class="rate-card"><span>NPS</span><strong>Variable</strong><span>Market-linked estimate</span></div>
+    </div>
+    <p class="rate-note">Rates and scheme rules can change. Rates are revised by the government, usually every quarter.</p>
+  </div></section>
+
+  <section class="section section-muted" id="calculators"><div class="container">
+    <div class="section-heading"><span class="pill">Savings tools</span><h2>Government Savings Calculators</h2><p>Change the inputs and calculate an illustrative outcome. Results are estimates, not official quotations.</p></div>
+    <div class="calculator-grid">
+      <article class="calculator-card" id="ssy-calculator" data-calc="ssy">
+        <div class="calc-head"><div><span class="pill">01 · SSY</span><h3>Sukanya Samriddhi Yojana</h3></div><span class="rate-badge"><span data-rate="SSY"></span> p.a.</span></div>
+        <div class="field"><label for="ssy-deposit">Yearly deposit (₹)</label><input class="amount-input" id="ssy-deposit" data-field="deposit" type="number" inputmode="numeric" value="50000"><div class="field-help"><span data-help="deposit-min"></span><span data-help="deposit-max"></span></div><input class="range" type="range" data-slider="deposit" value="50000" aria-label="Yearly deposit (₹) slider"></div>
+        <p class="error hidden" data-error role="alert"></p>
+        <button class="primary-btn" type="button" data-action="calculate">Calculate SSY estimate</button>
+        <div class="results" data-results>
+          <div class="result-hero"><p data-out="heroLabel">Estimated result</p><strong data-out="hero" aria-live="polite">—</strong><span class="hero-note" data-out="heroNote"></span></div>
+          <div class="result-grid">
+            <div class="result-card is-invest"><span data-out="investedLabel">Total investment</span><strong data-out="invested">—</strong></div>
+            <div class="result-card is-interest"><span data-out="interestLabel">Estimated interest</span><strong data-out="interest">—</strong></div>
+          </div>
+          <div class="chart-wrap"><canvas data-chart role="img" aria-label="Pie chart: total investment versus estimated interest earned"></canvas></div>
+          <!-- Download PDF Button -->
+<button class="download-btn" type="button" data-action="download">
+  <i class="fa-solid fa-file-pdf"></i> Download Maturity Report (PDF)
+</button>
+
+<!-- Universal Share Button -->
+<button class="download-btn share-btn" type="button" onclick="sharePlan(this)">
+  <i class="fa-solid fa-share-nodes"></i> Share Investment Plan
+</button>
+
+<!-- Dynamic Smart Guidance Tip -->
+<div class="smart-tip-box hidden" data-smart-tip>
+  <i class="fa-solid fa-lightbulb"></i>
+  <span data-tip-text></span>
+</div>
+
+<!-- Year-by-Year Growth Table Toggle -->
+<button class="breakdown-toggle-btn" type="button" onclick="toggleYearlyTable(this)">
+  <i class="fa-solid fa-table-list"></i> Show Year-by-Year Growth Table
+</button>
+
+<!-- Table Container -->
+<div class="yearly-breakdown-wrap hidden" data-yearly-wrap>
+  <table class="yearly-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Invested</th>
+        <th>Interest Earned</th>
+        <th>Total Balance</th>
+      </tr>
+    </thead>
+    <tbody data-yearly-body></tbody>
+  </table>
+</div>
+        </div>
+        <p class="fine-print">Assumes a deposit at the start of each year for 15 years, then growth until year 21 at a fixed rate, compounded annually. Actual SSY interest follows official balance and credit rules.</p>
+      </article>
+      <article class="calculator-card" id="ppf-calculator" data-calc="ppf">
+        <div class="calc-head"><div><span class="pill">02 · PPF</span><h3>Public Provident Fund</h3></div><span class="rate-badge"><span data-rate="PPF"></span> p.a.</span></div>
+        <div class="field"><label for="ppf-deposit">Yearly deposit (₹)</label><input class="amount-input" id="ppf-deposit" data-field="deposit" type="number" inputmode="numeric" value="100000"><div class="field-help"><span data-help="deposit-min"></span><span data-help="deposit-max"></span></div><input class="range" type="range" data-slider="deposit" value="100000" aria-label="Yearly deposit (₹) slider"></div><div class="field"><label for="ppf-tenure">Investment tenure</label><select class="amount-input" id="ppf-tenure" data-field="tenure"><option value="15">15 years</option><option value="20">20 years</option><option value="25">25 years</option></select></div>
+        <p class="error hidden" data-error role="alert"></p>
+        <button class="primary-btn" type="button" data-action="calculate">Calculate PPF estimate</button>
+        <div class="results" data-results>
+          <div class="result-hero"><p data-out="heroLabel">Estimated result</p><strong data-out="hero" aria-live="polite">—</strong><span class="hero-note" data-out="heroNote"></span></div>
+          <div class="result-grid">
+            <div class="result-card is-invest"><span data-out="investedLabel">Total investment</span><strong data-out="invested">—</strong></div>
+            <div class="result-card is-interest"><span data-out="interestLabel">Estimated interest</span><strong data-out="interest">—</strong></div>
+          </div>
+          <div class="chart-wrap"><canvas data-chart role="img" aria-label="Pie chart: total investment versus estimated interest earned"></canvas></div>
+          <!-- Download PDF Button -->
+<button class="download-btn" type="button" data-action="download">
+  <i class="fa-solid fa-file-pdf"></i> Download Maturity Report (PDF)
+</button>
+
+<!-- Universal Share Button -->
+<button class="download-btn share-btn" type="button" onclick="sharePlan(this)">
+  <i class="fa-solid fa-share-nodes"></i> Share Investment Plan
+</button>
+
+<!-- Dynamic Smart Guidance Tip -->
+<div class="smart-tip-box hidden" data-smart-tip>
+  <i class="fa-solid fa-lightbulb"></i>
+  <span data-tip-text></span>
+</div>
+
+<!-- Year-by-Year Growth Table Toggle -->
+<button class="breakdown-toggle-btn" type="button" onclick="toggleYearlyTable(this)">
+  <i class="fa-solid fa-table-list"></i> Show Year-by-Year Growth Table
+</button>
+
+<!-- Table Container -->
+<div class="yearly-breakdown-wrap hidden" data-yearly-wrap>
+  <table class="yearly-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Invested</th>
+        <th>Interest Earned</th>
+        <th>Total Balance</th>
+      </tr>
+    </thead>
+    <tbody data-yearly-body></tbody>
+  </table>
+</div>
+        </div>
+        <p class="fine-print">Assumes one deposit at the start of each year and annual compounding at a fixed rate. Official PPF interest is calculated under prescribed monthly-balance rules.</p>
+      </article>
+      <article class="calculator-card" id="pomis-calculator" data-calc="pomis">
+        <div class="calc-head"><div><span class="pill">03 · POMIS</span><h3>Post Office Monthly Income Scheme</h3></div><span class="rate-badge"><span data-rate="POMIS"></span> p.a.</span></div>
+        <div class="field"><label for="pomis-account">Account type</label><select class="amount-input" id="pomis-account" data-field="account"><option value="single">Single account (max ₹9,00,000)</option><option value="joint">Joint account (max ₹15,00,000)</option></select></div><div class="field"><label for="pomis-deposit">Deposit (₹)</label><input class="amount-input" id="pomis-deposit" data-field="deposit" type="number" inputmode="numeric" value="300000"><div class="field-help"><span data-help="deposit-min"></span><span data-help="deposit-max"></span></div><input class="range" type="range" data-slider="deposit" value="300000" aria-label="Deposit (₹) slider"></div>
+        <p class="error hidden" data-error role="alert"></p>
+        <button class="primary-btn" type="button" data-action="calculate">Calculate monthly income</button>
+        <div class="results" data-results>
+          <div class="result-hero"><p data-out="heroLabel">Estimated result</p><strong data-out="hero" aria-live="polite">—</strong><span class="hero-note" data-out="heroNote"></span></div>
+          <div class="result-grid">
+            <div class="result-card is-invest"><span data-out="investedLabel">Total investment</span><strong data-out="invested">—</strong></div>
+            <div class="result-card is-interest"><span data-out="interestLabel">Estimated interest</span><strong data-out="interest">—</strong></div>
+          </div>
+          <div class="chart-wrap"><canvas data-chart role="img" aria-label="Pie chart: total investment versus estimated interest earned"></canvas></div>
+          <!-- Download PDF Button -->
+<button class="download-btn" type="button" data-action="download">
+  <i class="fa-solid fa-file-pdf"></i> Download Maturity Report (PDF)
+</button>
+
+<!-- Universal Share Button -->
+<button class="download-btn share-btn" type="button" onclick="sharePlan(this)">
+  <i class="fa-solid fa-share-nodes"></i> Share Investment Plan
+</button>
+
+<!-- Dynamic Smart Guidance Tip -->
+<div class="smart-tip-box hidden" data-smart-tip>
+  <i class="fa-solid fa-lightbulb"></i>
+  <span data-tip-text></span>
+</div>
+
+<!-- Year-by-Year Growth Table Toggle -->
+<button class="breakdown-toggle-btn" type="button" onclick="toggleYearlyTable(this)">
+  <i class="fa-solid fa-table-list"></i> Show Year-by-Year Growth Table
+</button>
+
+<!-- Table Container -->
+<div class="yearly-breakdown-wrap hidden" data-yearly-wrap>
+  <table class="yearly-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Invested</th>
+        <th>Interest Earned</th>
+        <th>Total Balance</th>
+      </tr>
+    </thead>
+    <tbody data-yearly-body></tbody>
+  </table>
+</div>
+        </div>
+        <p class="fine-print">Simple interest paid out monthly for five years; the principal is returned at maturity. Eligibility, limits and payout terms are governed by current official rules.</p>
+      </article>
+      <article class="calculator-card" id="nps-calculator" data-calc="nps">
+        <div class="calc-head"><div><span class="pill">04 · NPS</span><h3>NPS Retirement Calculator</h3></div><span class="rate-badge">Market-linked</span></div>
+        <div class="field"><label for="nps-monthly">Monthly contribution (₹)</label><input class="amount-input" id="nps-monthly" data-field="monthly" type="number" inputmode="numeric" value="5000"><div class="field-help"><span data-help="monthly-min"></span><span data-help="monthly-max"></span></div><input class="range" type="range" data-slider="monthly" value="5000" aria-label="Monthly contribution (₹) slider"></div><div class="field"><label for="nps-age">Current age</label><input class="amount-input" id="nps-age" data-field="age" type="number" inputmode="numeric" value="25"><div class="field-help"><span data-help="age-min"></span><span data-help="age-max"></span></div></div><div class="field"><label for="nps-return">Expected annual return</label><select class="amount-input" id="nps-return" data-field="return"></select></div>
+        <p class="error hidden" data-error role="alert"></p>
+        <button class="primary-btn" type="button" data-action="calculate">Calculate retirement corpus</button>
+        <div class="results" data-results>
+          <div class="result-hero"><p data-out="heroLabel">Estimated result</p><strong data-out="hero" aria-live="polite">—</strong><span class="hero-note" data-out="heroNote"></span></div>
+          <div class="result-grid">
+            <div class="result-card is-invest"><span data-out="investedLabel">Total investment</span><strong data-out="invested">—</strong></div>
+            <div class="result-card is-interest"><span data-out="interestLabel">Estimated interest</span><strong data-out="interest">—</strong></div>
+          </div>
+          <div class="chart-wrap"><canvas data-chart role="img" aria-label="Pie chart: total investment versus estimated interest earned"></canvas></div>
+          <!-- Download PDF Button -->
+<button class="download-btn" type="button" data-action="download">
+  <i class="fa-solid fa-file-pdf"></i> Download Maturity Report (PDF)
+</button>
+
+<!-- Universal Share Button -->
+<button class="download-btn share-btn" type="button" onclick="sharePlan(this)">
+  <i class="fa-solid fa-share-nodes"></i> Share Investment Plan
+</button>
+
+<!-- Dynamic Smart Guidance Tip -->
+<div class="smart-tip-box hidden" data-smart-tip>
+  <i class="fa-solid fa-lightbulb"></i>
+  <span data-tip-text></span>
+</div>
+
+<!-- Year-by-Year Growth Table Toggle -->
+<button class="breakdown-toggle-btn" type="button" onclick="toggleYearlyTable(this)">
+  <i class="fa-solid fa-table-list"></i> Show Year-by-Year Growth Table
+</button>
+
+<!-- Table Container -->
+<div class="yearly-breakdown-wrap hidden" data-yearly-wrap>
+  <table class="yearly-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Invested</th>
+        <th>Interest Earned</th>
+        <th>Total Balance</th>
+      </tr>
+    </thead>
+    <tbody data-yearly-body></tbody>
+  </table>
+</div>
+        </div>
+        <p class="fine-print">NPS returns are market-linked and not guaranteed. This simplified estimate assumes regular month-end contributions and a constant hypothetical return; it does not model charges, annuity, tax or withdrawal rules.</p>
+      </article>
+      <article class="calculator-card" id="scss-calculator" data-calc="scss">
+        <div class="calc-head"><div><span class="pill">05 · SCSS</span><h3>Senior Citizens Savings Scheme</h3></div><span class="rate-badge"><span data-rate="SCSS"></span> p.a.</span></div>
+        <div class="field"><label for="scss-deposit">One-time deposit (₹)</label><input class="amount-input" id="scss-deposit" data-field="deposit" type="number" inputmode="numeric" value="1000000"><div class="field-help"><span data-help="deposit-min"></span><span data-help="deposit-max"></span></div><input class="range" type="range" data-slider="deposit" value="1000000" aria-label="One-time deposit (₹) slider"></div>
+        <p class="error hidden" data-error role="alert"></p>
+        <button class="primary-btn" type="button" data-action="calculate">Calculate SCSS interest</button>
+        <div class="results" data-results>
+          <div class="result-hero"><p data-out="heroLabel">Estimated result</p><strong data-out="hero" aria-live="polite">—</strong><span class="hero-note" data-out="heroNote"></span></div>
+          <div class="result-grid">
+            <div class="result-card is-invest"><span data-out="investedLabel">Total investment</span><strong data-out="invested">—</strong></div>
+            <div class="result-card is-interest"><span data-out="interestLabel">Estimated interest</span><strong data-out="interest">—</strong></div>
+          </div>
+          <div class="chart-wrap"><canvas data-chart role="img" aria-label="Pie chart: total investment versus estimated interest earned"></canvas></div>
+          <!-- Download PDF Button -->
+<button class="download-btn" type="button" data-action="download">
+  <i class="fa-solid fa-file-pdf"></i> Download Maturity Report (PDF)
+</button>
+
+<!-- Universal Share Button -->
+<button class="download-btn share-btn" type="button" onclick="sharePlan(this)">
+  <i class="fa-solid fa-share-nodes"></i> Share Investment Plan
+</button>
+
+<!-- Dynamic Smart Guidance Tip -->
+<div class="smart-tip-box hidden" data-smart-tip>
+  <i class="fa-solid fa-lightbulb"></i>
+  <span data-tip-text></span>
+</div>
+
+<!-- Year-by-Year Growth Table Toggle -->
+<button class="breakdown-toggle-btn" type="button" onclick="toggleYearlyTable(this)">
+  <i class="fa-solid fa-table-list"></i> Show Year-by-Year Growth Table
+</button>
+
+<!-- Table Container -->
+<div class="yearly-breakdown-wrap hidden" data-yearly-wrap>
+  <table class="yearly-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Total Invested</th>
+        <th>Interest Earned</th>
+        <th>Total Balance</th>
+      </tr>
+    </thead>
+    <tbody data-yearly-body></tbody>
+  </table>
+</div>
+        </div>
+        <p class="fine-print">Simple interest paid quarterly for five years; the deposit is returned at maturity. Eligibility is age-based and tax/TDS treatment is not modelled. Verify with your post office or bank.</p>
+      </article>
+    </div>
+  </div></section>
+
+  <section class="section" id="comparison"><div class="container">
+    <div class="section-heading"><span class="pill">Compare savings</span><h2>Compare Investment Schemes</h2><p>Compare selected scheme features and indicative assumptions. This is not a personalised recommendation.</p></div>
+    <div class="calculator-card">
+      <div class="result-grid" style="margin-top:0;margin-bottom:22px">
+        <div class="field" style="margin:0"><label for="compare-left">First scheme</label><select id="compare-left" class="amount-input"><option value="SSY">SSY</option><option value="PPF">PPF</option><option value="SCSS">SCSS</option><option value="FD">Bank FD (illustrative)</option><option value="POMIS">POMIS</option></select></div>
+        <div class="field" style="margin:0"><label for="compare-right">Second scheme</label><select id="compare-right" class="amount-input"><option value="PPF" selected>PPF</option><option value="SSY">SSY</option><option value="SCSS">SCSS</option><option value="FD">Bank FD (illustrative)</option><option value="POMIS">POMIS</option></select></div>
+      </div>
+      <div class="comparison-wrap"><table class="comparison-table"><thead><tr><th>Feature</th><th id="compare-left-title">Sukanya Samriddhi Yojana</th><th id="compare-right-title">Public Provident Fund</th></tr></thead><tbody id="comparison-body"></tbody></table></div>
+      <p class="fine-print">The FD rate is an illustrative assumption, not a live bank quote. Verify all current rates, tax rules, eligibility and terms from official sources.</p>
+    </div>
+  </div></section>
+
+  <section class="section section-muted" id="latest-guides"><div class="container">
+    <div class="section-heading"><span class="pill">Financial knowledge</span><h2>Latest Guides</h2><p>Explore simple educational guides about savings schemes, account opening and retirement planning.</p></div>
+    <div class="guide-grid">
+    <article class="guide-card"><div class="guide-icon"><i class="fa-solid fa-baby"></i></div><span class="guide-tag">SSY</span><h3 class="guide-title">How to Open an SSY Account in 2026?</h3><p class="guide-description">Understand eligibility, documents, deposit limits and the account-opening process for Sukanya Samriddhi Yojana.</p><a href="ssy-guide.html" class="guide-link">Read Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    <article class="guide-card"><div class="guide-icon blue"><i class="fa-solid fa-piggy-bank"></i></div><span class="guide-tag">PPF</span><h3 class="guide-title">PPF Account: Rules, Benefits and Returns</h3><p class="guide-description">Learn about PPF deposits, investment duration, tax treatment and estimated maturity calculations.</p><a href="ppf-guide.html" class="guide-link">Read Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    <article class="guide-card"><div class="guide-icon amber"><i class="fa-solid fa-calendar-check"></i></div><span class="guide-tag">POMIS</span><h3 class="guide-title">Post Office MIS: Monthly Income Explained</h3><p class="guide-description">Explore account limits, tenure and how monthly interest payments are estimated.</p><a href="pomis-guide.html" class="guide-link">Read Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    <article class="guide-card"><div class="guide-icon violet"><i class="fa-solid fa-chart-line"></i></div><span class="guide-tag">NPS</span><h3 class="guide-title">NPS Calculator: Estimate Your Retirement Corpus</h3><p class="guide-description">Understand monthly contributions, investment duration, assumed returns and projected corpus.</p><a href="nps-guide.html" class="guide-link">Read Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    <article class="guide-card"><div class="guide-icon rose"><i class="fa-solid fa-user-shield"></i></div><span class="guide-tag">SCSS</span><h3 class="guide-title">Senior Citizens Savings Scheme (SCSS) Explained</h3><p class="guide-description">Learn about SCSS eligibility, the ₹30 lakh limit, quarterly interest and how the payout is estimated.</p><a href="scss-guide.html" class="guide-link">Read Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    <article class="guide-card"><div class="guide-icon cyan"><i class="fa-solid fa-scale-balanced"></i></div><span class="guide-tag">Comparison</span><h3 class="guide-title">PPF vs SSY vs SCSS vs FD: Understanding the Differences</h3><p class="guide-description">Compare eligibility, investment periods, taxation and payout structures in an educational overview.</p><a href="compare_guide.html" class="guide-link">Read Full Guide <i class="fa-solid fa-arrow-right"></i></a></article>
+    </div>
+    <p class="notice" style="text-align:center">Guides are general educational summaries. Always confirm scheme terms from official sources before acting.</p>
+  </div></section>
+</main>
+<footer class="site-footer" id="site-footer"><div class="container"><div class="footer-grid">
+  <div><a class="brand" href="#home" style="color:#fff"><span class="brand-mark"><i class="fa-solid fa-landmark"></i></span><span>Govt<em>Save</em></span></a><p>Simplifying government savings calculations and helping users understand savings scheme concepts through educational tools.</p></div>
+  <div id="about"><h3>About Us</h3><p>GovtSave is an independent educational calculator platform. It is not affiliated with the Government of India, India Post or any bank.</p></div>
+  <div><h3>Quick Links</h3><ul><li><a class="footer-link" href="#calculators">Savings Calculators</a></li><li><a class="footer-link" href="#comparison">Scheme Comparison</a></li><li><a class="footer-link" href="#latest-guides">Latest Guides</a></li><li><a class="footer-link" href="#contact">Contact Us</a></li><li><a class="footer-link" href="#privacy">Privacy Policy</a></li></ul></div>
+  <div id="contact"><h3>Contact Us</h3><p>For questions or to report a calculator issue, contact:</p><p><a class="footer-link" href="mailto:hello@govtsave.in">hello@govtsave.in</a></p><p style="font-size:.78rem">Before launch, configure this mailbox or replace it with your verified contact address.</p></div>
+</div>
+<div class="disclaimer" id="disclaimer"><h3><i class="fa-solid fa-triangle-exclamation"></i> Important Disclaimer</h3><p><strong style="color:#e2e8f0">This website is for educational calculation purposes only and not official financial advice.</strong></p><p>Calculator results are estimates based on user inputs and assumptions. Actual returns, interest calculations, eligibility, tax treatment and scheme rules may differ. Rates and government rules can change. Verify current information with the relevant official authority or financial institution before making financial decisions.</p></div>
+<div class="privacy" id="privacy"><h3>Privacy Policy</h3><p>The calculators and PDF reports on this site run entirely in your browser; the values you enter are not sent to a GovtSave server. Pages load third-party libraries (Chart.js, html2pdf.js, Font Awesome) from CDNs, which may receive standard connection data such as IP address and browser information. If you add analytics, ads, forms, cookies or other services, update this policy to describe them, their providers, purposes, retention and available user choices. Do not enter account numbers, Aadhaar, PAN or other sensitive personal information into calculators.</p></div>
+<div class="copyright"><span>&copy; <span id="footer-year">2026</span> GovtSave. All rights reserved.</span><span>Independent educational resource · Not official government advice</span></div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="app.js"></script>
+</body>
+</html>
