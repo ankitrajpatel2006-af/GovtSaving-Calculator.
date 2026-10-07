@@ -1872,3 +1872,87 @@ html.dark-mode strong,
 html.dark-mode b {
   color: #f8fafc !important;
 }
+/* =========================================================
+   FINAL FIX - PLANNER + SCHEME TITLE DARK MODE
+   ========================================================= */
+
+/* Monthly Investment Planner */
+html.dark-mode .planner-result-main {
+  background: #0f3d2e !important;
+  border-color: #176b52 !important;
+}
+
+html.dark-mode .planner-result-main span {
+  color: #d1fae5 !important;
+}
+
+html.dark-mode .planner-result-main strong {
+  color: #6ee7b7 !important;
+}
+
+html.dark-mode .planner-result-main small {
+  color: #a7f3d0 !important;
+}
+
+
+/* Planner result cards */
+html.dark-mode .planner-result-grid .result-card {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .planner-result-grid .result-card span {
+  color: #94a3b8 !important;
+}
+
+html.dark-mode .planner-result-grid .result-card strong {
+  color: #f8fafc !important;
+}
+
+
+/* Scheme card title */
+html.dark-mode .calculator-card .calc-head h3 {
+  color: #f8fafc !important;
+}
+
+
+/* If scheme title is inside a title row */
+html.dark-mode .scheme-title-row h3,
+html.dark-mode .scheme-title-row .scheme-title {
+  color: #f8fafc !important;
+}
+
+
+/* Yearly deposit and other calculator labels */
+html.dark-mode .calculator-card .field label {
+  color: #f1f5f9 !important;
+}
+/* =========================================================
+   GOVTSAVE - GUIDE CARDS DARK MODE FIX
+   ========================================================= */
+
+html.dark-mode .guide-card {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html.dark-mode .guide-title {
+  color: #f8fafc !important;
+}
+
+html.dark-mode .guide-description {
+  color: #cbd5e1 !important;
+}
+
+html.dark-mode .guide-tag {
+  color: #047857 !important;
+  background: #d1fae5 !important;
+}
+
+html.dark-mode .guide-link {
+  color: #6ee7b7 !important;
+}
+
+html.dark-mode .guide-link:hover {
+  color: #a7f3d0 !important;
+}
