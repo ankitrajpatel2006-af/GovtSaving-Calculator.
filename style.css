@@ -1749,10 +1749,8 @@ html.dark-mode .quiz-result-label {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 /* =========================================================
-   GOVTSAVE - DARK MODE FINAL CONTRAST FIX
+   GOVTSAVE - DARK MODE TEXT VISIBILITY FIX
    ========================================================= */
-
-/* ---------- Calculator labels ---------- */
 
 html.dark-mode .field label {
   color: #f1f5f9 !important;
@@ -1766,30 +1764,7 @@ html.dark-mode .rate-badge {
   color: #6ee7b7 !important;
 }
 
-
-/* ---------- Calculator text ---------- */
-
-html.dark-mode .calculator-card,
-html.dark-mode .calculator-card * {
-  /* don't force backgrounds here */
-}
-
-html.dark-mode .calculator-card p {
-  color: #cbd5e1 !important;
-}
-
-html.dark-mode .calculator-card small {
-  color: #94a3b8 !important;
-}
-
-html.dark-mode .calculator-card strong {
-  color: #f8fafc;
-}
-
-
-/* ---------- Inputs ---------- */
-
-html.dark-mode .amount-input,
+/* Inputs */
 html.dark-mode input,
 html.dark-mode select,
 html.dark-mode textarea {
@@ -1803,24 +1778,14 @@ html.dark-mode textarea::placeholder {
   color: #94a3b8 !important;
 }
 
-
-/* ---------- Comparison dropdown labels ---------- */
-
+/* Comparison */
 html.dark-mode .comparison-wrap label,
-html.dark-mode .comparison label,
-html.dark-mode .compare label {
-  color: #f1f5f9 !important;
-}
-
-
-/* ---------- Comparison table ---------- */
-
-html.dark-mode .comparison-table {
+html.dark-mode .comparison label {
   color: #f1f5f9 !important;
 }
 
 html.dark-mode .comparison-table th {
-  background: #022c22 !important;
+  background: #064e3b !important;
   color: #ffffff !important;
 }
 
@@ -1830,27 +1795,10 @@ html.dark-mode .comparison-table td {
   border-color: #475569 !important;
 }
 
-html.dark-mode .comparison-table tr:nth-child(even) td {
-  background: #273449 !important;
-  color: #f1f5f9 !important;
-}
-
-
-/* ---------- Growth / Yearly table ---------- */
-
-html.dark-mode .yearly-breakdown-wrap {
-  border-color: #475569 !important;
-}
-
-html.dark-mode .yearly-table {
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
-}
-
+/* Growth table */
 html.dark-mode .yearly-table th {
   background: #334155 !important;
-  color: #f8fafc !important;
-  border-color: #475569 !important;
+  color: #ffffff !important;
 }
 
 html.dark-mode .yearly-table td {
@@ -1859,53 +1807,38 @@ html.dark-mode .yearly-table td {
   border-color: #475569 !important;
 }
 
-
-/* ---------- Growth table button ---------- */
-
+/* Growth table button */
 html.dark-mode .breakdown-toggle-btn {
-  background: transparent !important;
-  color: #e2e8f0 !important;
+  color: #f1f5f9 !important;
   border-color: #64748b !important;
 }
 
 html.dark-mode .breakdown-toggle-btn:hover {
-  background: #1e293b !important;
   color: #ffffff !important;
+  background: #1e293b !important;
 }
 
-
-/* ---------- Result cards ---------- */
-
-html.dark-mode .result-card {
-  background: #0f172a !important;
-  border-color: #334155 !important;
-  color: #f1f5f9 !important;
-}
-
-html.dark-mode .result-card span {
+/* Calculator normal text */
+html.dark-mode .calculator-card p,
+html.dark-mode .calculator-card li {
   color: #cbd5e1 !important;
 }
 
-html.dark-mode .result-card strong {
+html.dark-mode .calculator-card small {
+  color: #94a3b8 !important;
+}
+
+/* Headings */
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode h5,
+html.dark-mode h6 {
   color: #f8fafc !important;
 }
 
-
-/* ---------- Smart tip ---------- */
-
-html.dark-mode .smart-tip-box {
-  background: #0b3b2e !important;
-  color: #d1fae5 !important;
-  border-left-color: #10b981 !important;
-}
-
-html.dark-mode .smart-tip-box * {
-  color: #d1fae5 !important;
-}
-
-
-/* ---------- Article / Guide pages ---------- */
-
+/* Guide/article */
 html.dark-mode .article p,
 html.dark-mode .article li {
   color: #cbd5e1 !important;
@@ -1917,112 +1850,25 @@ html.dark-mode .article h4 {
   color: #f8fafc !important;
 }
 
+/* Fact tables */
 html.dark-mode .fact-table th {
-  background: #1e293b !important;
-  color: #f8fafc !important;
+  background: #334155 !important;
+  color: #ffffff !important;
 }
 
 html.dark-mode .fact-table td {
-  background: #111827 !important;
-  color: #cbd5e1 !important;
-  border-color: #334155 !important;
-}
-
-
-/* ---------- Sidebar ---------- */
-
-html.dark-mode .side-card {
-  background: #111827 !important;
-  color: #cbd5e1 !important;
-  border-color: #334155 !important;
-}
-
-html.dark-mode .side-card h3 {
-  color: #f8fafc !important;
-}
-
-html.dark-mode .side-card p {
-  color: #cbd5e1 !important;
-}
-
-html.dark-mode .side-card li a {
-  color: #cbd5e1 !important;
-}
-
-
-/* ---------- Guide cards ---------- */
-
-html.dark-mode .guide-card {
   background: #1e293b !important;
-  color: #f1f5f9 !important;
-  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+  border-color: #475569 !important;
 }
 
-html.dark-mode .guide-title {
-  color: #f8fafc !important;
-}
-
-html.dark-mode .guide-description {
-  color: #cbd5e1 !important;
-}
-
-
-/* ---------- Generic text ---------- */
-
-html.dark-mode .fine-print,
-html.dark-mode .notice {
-  color: #94a3b8 !important;
-}
-
-
-/* ---------- Planner ---------- */
-
-html.dark-mode .planner-card {
-  background: #1e293b !important;
-  border-color: #334155 !important;
-}
-
-html.dark-mode .planner-result-main span {
-  color: #cbd5e1 !important;
-}
-
-html.dark-mode .planner-result-main small {
-  color: #94a3b8 !important;
-}
-
-html.dark-mode .planner-note {
-  background: #111827 !important;
-  color: #cbd5e1 !important;
-}
-
-
-/* ---------- Dashboard cards ---------- */
-
-html.dark-mode .premium-dashboard-card {
-  background: #1e293b !important;
-  color: #f1f5f9 !important;
-  border-color: #334155 !important;
-}
-
-html.dark-mode .premium-dashboard-card strong {
-  color: #f8fafc !important;
-}
-
-html.dark-mode .premium-dashboard-card span {
-  color: #cbd5e1 !important;
-}
-
-
-/* ---------- Links ---------- */
-
-html.dark-mode .article a,
-html.dark-mode .side-card a {
-  color: #6ee7b7 !important;
-}
-
-
-/* ---------- Generic labels ---------- */
-
+/* Generic labels */
 html.dark-mode label {
   color: #e2e8f0 !important;
+}
+
+/* Generic strong text */
+html.dark-mode strong,
+html.dark-mode b {
+  color: #f8fafc !important;
 }
