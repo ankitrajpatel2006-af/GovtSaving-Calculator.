@@ -1748,3 +1748,375 @@ html.dark-mode .quiz-result-label {
 .dark-mode .popular-calculator-card:hover {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
+/* =========================================================
+   GovtSave - FINAL DARK MODE VISIBILITY FIX
+   Add this at the VERY END of style(1).css
+   ========================================================= */
+
+/* ---------- Global dark mode ---------- */
+
+.dark-mode,
+body.dark-mode {
+  --ink: #f1f5f9;
+  --muted: #cbd5e1;
+  --line: #334155;
+  --surface: #111827;
+  --green-light: #123c31;
+  --shadow: 0 8px 30px rgba(0, 0, 0, .30);
+
+  background: #0b1220;
+  color: #f1f5f9;
+}
+
+.dark-mode body,
+body.dark-mode {
+  background: #0b1220;
+  color: #f1f5f9;
+}
+
+/* ---------- Header / navigation ---------- */
+
+.dark-mode .site-header,
+body.dark-mode .site-header {
+  background: #111827;
+  border-color: #334155;
+}
+
+.dark-mode .nav-links a,
+.dark-mode .footer-link,
+.dark-mode .mobile-links a,
+body.dark-mode .nav-links a,
+body.dark-mode .footer-link,
+body.dark-mode .mobile-links a {
+  color: #cbd5e1;
+}
+
+.dark-mode .nav-links a:hover,
+.dark-mode .footer-link:hover,
+.dark-mode .nav-links a[aria-current="page"],
+body.dark-mode .nav-links a:hover,
+body.dark-mode .footer-link:hover,
+body.dark-mode .nav-links a[aria-current="page"] {
+  color: #6ee7b7;
+}
+
+.dark-mode .menu-btn,
+body.dark-mode .menu-btn {
+  background: #111827;
+  color: #f1f5f9;
+  border-color: #475569;
+}
+
+
+/* ---------- Headings / normal text ---------- */
+
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #f8fafc;
+}
+
+.dark-mode p,
+.dark-mode li,
+.dark-mode label,
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode label {
+  color: #cbd5e1;
+}
+
+
+/* ---------- Calculator cards ---------- */
+
+.dark-mode .calculator-card,
+body.dark-mode .calculator-card {
+  background: #111827;
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.dark-mode .calculator-card label,
+body.dark-mode .calculator-card label {
+  color: #e2e8f0;
+}
+
+.dark-mode .calculator-card small,
+.dark-mode .calculator-card .muted,
+body.dark-mode .calculator-card small,
+body.dark-mode .calculator-card .muted {
+  color: #94a3b8;
+}
+
+
+/* ---------- Inputs / Select / Textareas ---------- */
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea,
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder,
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #94a3b8;
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus,
+.dark-mode textarea:focus,
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+  border-color: #34d399;
+}
+
+
+/* ---------- Result area ---------- */
+
+.dark-mode .calculator-card .result,
+body.dark-mode .calculator-card .result {
+  color: #f1f5f9;
+}
+
+.dark-mode .calculator-card .result *,
+body.dark-mode .calculator-card .result * {
+  color: inherit;
+}
+
+.dark-mode .calculator-card .result-row,
+body.dark-mode .calculator-card .result-row {
+  border-color: #334155;
+}
+
+
+/* ---------- Growth table ---------- */
+
+.dark-mode table,
+body.dark-mode table {
+  color: #e2e8f0;
+}
+
+.dark-mode th,
+.dark-mode td,
+body.dark-mode th,
+body.dark-mode td {
+  color: #e2e8f0;
+  border-color: #334155;
+}
+
+.dark-mode th,
+body.dark-mode th {
+  background: #1e293b;
+}
+
+.dark-mode td,
+body.dark-mode td {
+  background: #111827;
+}
+
+.dark-mode tr:nth-child(even) td,
+body.dark-mode tr:nth-child(even) td {
+  background: #162033;
+}
+
+
+/* ---------- "Hide growth table" / buttons / controls ---------- */
+
+.dark-mode button,
+body.dark-mode button {
+  color: inherit;
+}
+
+.dark-mode .toggle,
+.dark-mode .toggle-label,
+.dark-mode .table-toggle,
+.dark-mode .growth-toggle,
+body.dark-mode .toggle,
+body.dark-mode .toggle-label,
+body.dark-mode .table-toggle,
+body.dark-mode .growth-toggle {
+  color: #e2e8f0;
+}
+
+
+/* ---------- Scheme comparison ---------- */
+
+.dark-mode .comparison,
+.dark-mode .comparison-card,
+.dark-mode .compare-card,
+body.dark-mode .comparison,
+body.dark-mode .comparison-card,
+body.dark-mode .compare-card {
+  background: #111827;
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+.dark-mode .comparison label,
+.dark-mode .comparison-card label,
+.dark-mode .compare-card label,
+body.dark-mode .comparison label,
+body.dark-mode .comparison-card label,
+body.dark-mode .compare-card label {
+  color: #e2e8f0;
+}
+
+
+/* ---------- Guide / article pages ---------- */
+
+.dark-mode .article,
+body.dark-mode .article {
+  color: #cbd5e1;
+}
+
+.dark-mode .article p,
+.dark-mode .article li,
+body.dark-mode .article p,
+body.dark-mode .article li {
+  color: #cbd5e1;
+}
+
+.dark-mode .article h2,
+.dark-mode .article h3,
+.dark-mode .article h4,
+body.dark-mode .article h2,
+body.dark-mode .article h3,
+body.dark-mode .article h4 {
+  color: #f8fafc;
+}
+
+
+/* ---------- Guide fact tables ---------- */
+
+.dark-mode .fact-table,
+body.dark-mode .fact-table {
+  border-color: #334155;
+}
+
+.dark-mode .fact-table th,
+body.dark-mode .fact-table th {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.dark-mode .fact-table td,
+body.dark-mode .fact-table td {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+
+/* ---------- Article sidebar ---------- */
+
+.dark-mode .sidebar .side-card,
+.dark-mode .side-card,
+body.dark-mode .sidebar .side-card,
+body.dark-mode .side-card {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.dark-mode .side-card h3,
+.dark-mode .side-card h4,
+body.dark-mode .side-card h3,
+body.dark-mode .side-card h4 {
+  color: #f8fafc;
+}
+
+
+/* ---------- Callouts ---------- */
+
+.dark-mode .callout,
+body.dark-mode .callout {
+  background: #123c31;
+  border-color: #176b52;
+  color: #d1fae5;
+}
+
+.dark-mode .callout h3,
+body.dark-mode .callout h3 {
+  color: #a7f3d0;
+}
+
+.dark-mode .callout.warn,
+body.dark-mode .callout.warn {
+  background: #3b2f0b;
+  border-color: #795b12;
+}
+
+.dark-mode .callout.warn h3,
+body.dark-mode .callout.warn h3 {
+  color: #fcd34d;
+}
+
+
+/* ---------- Cards / sections with white background ---------- */
+
+.dark-mode .card,
+.dark-mode .section,
+.dark-mode .panel,
+body.dark-mode .card,
+body.dark-mode .section,
+body.dark-mode .panel {
+  color: #e2e8f0;
+}
+
+
+/* ---------- Links ---------- */
+
+.dark-mode a,
+body.dark-mode a {
+  color: #6ee7b7;
+}
+
+.dark-mode a:hover,
+body.dark-mode a:hover {
+  color: #a7f3d0;
+}
+
+
+/* ---------- Strong / emphasized text ---------- */
+
+.dark-mode strong,
+.dark-mode b,
+body.dark-mode strong,
+body.dark-mode b {
+  color: #f8fafc;
+}
+
+
+/* ---------- Horizontal lines ---------- */
+
+.dark-mode hr,
+body.dark-mode hr {
+  border-color: #334155;
+}
+
+
+/* ---------- Prevent common white backgrounds ---------- */
+
+.dark-mode .bg-white,
+.dark-mode .white-bg,
+body.dark-mode .bg-white,
+body.dark-mode .white-bg {
+  background: #111827 !important;
+  color: #f1f5f9;
+}
